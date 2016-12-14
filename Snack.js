@@ -7,10 +7,11 @@ function Snack() {
     this.tail = [];
 
     this.update = function () {
-        for(var i = 0; i < this.total - 1; i++) {
-            this.tail[i] = this.tail[i + 1];
+        if(this.total === this.tail.length) {
+            for(var i = 0; i < this.tail.length - 1; i++) {
+                this.tail[i] = this.tail[i + 1];
+            }
         }
-
         this.tail[this.total - 1] = createVector(this.x, this.y);
 
         this.x = this.x + this.xSpeed * scl;
@@ -22,9 +23,9 @@ function Snack() {
 
     this.show = function () {
         fill(255);
-        for(var i = 0; i < this.total; i++) {
-            rect(this.tail[i].x, this.tail[i].y, scl, scl);
-        }
+        this.tail.forEach(i => {
+            rect(i.x, i.y, scl, scl);
+        });
 
         rect(this.x, this.y, scl, scl);
     };
